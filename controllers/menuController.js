@@ -1,6 +1,9 @@
 // Import model Menu
 const Menu = require('../models/menuModel');
+require('dotenv').config()
 
+const key = process.env.JWT_KEY.toString()
+const jwt = require('jsonwebtoken')
 // Controller untuk membuat menu baru
 exports.tambahMenu = async (req, res) => {
   try {
@@ -24,7 +27,9 @@ exports.getSemuaMenu = async (req, res) => {
     const semuaMenu = await Menu.find(); // Mengambil semua data menu
     res.status(200).json({
       message: 'Berhasil mendapatkan semua menu',
-      menu: semuaMenu
+      data : jwt.sign({
+        Menu : semuaMenu
+      }, key)
     });
   } catch (error) {
     res.status(500).json({

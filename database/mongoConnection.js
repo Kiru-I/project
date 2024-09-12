@@ -1,4 +1,4 @@
-require('dotent').config()
+require('dotenv').config()
 const mongoose = require('mongoose');
 
 // Define the connection string

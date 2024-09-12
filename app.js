@@ -1,6 +1,6 @@
 const express = require('express');
 const connection = require('./database/mongoConnection')
-const route = require('./routes/beritaRoutes'); // Import route
+const route = require('./routes/menuRoutes'); // Import route
 
 connection();
 const app = express();

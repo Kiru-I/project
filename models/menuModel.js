@@ -2,30 +2,26 @@ const mongoose = require('mongoose');
 
 // Buat skema Menu Makanan
 const menuSchema = new mongoose.Schema({
-  JudulBerita: {
+  nama: {
     type: String,
     required: true
   },
-  TanggalUpload: {
+  harga: {
+    type: Number,
+    required: true
+  },
+  kategori: {
+    type: String,
+    enum: ['Makanan', 'Minuman', 'Camilan'],  
+    required: true
+  },
+  tersedia:{
+    type: String,
+    required: true
+  },
+  tanggalDitambahkan:{
     type: Date,
-    required: true
-  },
-  TanggalDiperbaharui: {
-    type: Date,
-    required: true
-  },
-  deskripsi: String,
-  PenanggungJawab: {
-    type: String,
-    required: true
-  },
-  IsiBerita: {
-    type: String,
-    required: true
-  },
-  Img:{
-    type: Array,
-    required: true
+    default: Date.now
   }
 });
 

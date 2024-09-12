@@ -1,6 +1,6 @@
 const express = require('express');
 const connection = require('./database/mongoConnection')
-const beritaRoutes = require('./routes/beritaRoutes'); // Import route
+const route = require('./routes/menuRoutes'); // Import route
 
 connection();
 const app = express();
@@ -10,7 +10,7 @@ app.use(express.json());
 
 
 // Gunakan route menu
-app.use('/api', beritaRoutes);
+app.use('/api', route);
 
 // Jalankan server di port 3000
 const PORT = 3000;

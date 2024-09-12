@@ -1,7 +1,8 @@
+require('dotent').config()
 const mongoose = require('mongoose');
 
 // Define the connection string
-const connectionString = 'mongodb+srv://ServerRPL:NodeJSForLife!@belajardatabase.zhfyf.mongodb.net/serverRPL';
+const connectionString = process.env.SERVER_URL.toString();
 
 // Create a connection
 function connection(){

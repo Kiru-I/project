@@ -1,9 +1,10 @@
 const express = require('express');
 const connection = require('./database/mongoConnection')
-const menu_route = require('./routes/menuRoutes'); // Import route
+const berita_route = require('./routes/beritaRoutes'); // Import route
+const token_route = require('./routes/tokenRoutes')
 const helmet = require("helmet")
-
-// app.use(helmet())
+const cookieParser = require('cookie-parser')
+const cors = require("cors")
 
 connection();
 const app = express();
@@ -12,7 +13,13 @@ const app = express();
 app.use(express.json());
 
 // Gunakan route menu
-app.use('/api/menu', menu_route);
+app.use('/api/berita', berita_route);
+app.use('/penus', token_route)
+
+// Mideweh
+app.use(helmet())
+app.use(cookieParser())
+app.use(cors())
 
 // Start the server
 const PORT = 3000;

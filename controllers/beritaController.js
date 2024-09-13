@@ -1,8 +1,30 @@
 // Import model Menu
 const Berita = require('../models/beritaModel');
+require('dotenv').config()
+const key = process.env.JWT_KEY.toString()
+const jwt = require('jsonwebtoken')
 
+// Controller GET dengan Token
+exports.secureGetAllBerita = async (req, res) => {
+  const tiket = req.params.token
+  const tiket_value = jwt.verify(tiket, key)
+  if(tiket_value.name === key) {
+      try {
+          const semuaBerita = await Berita.findById(tiket_value.id); // Mengambil semua data menu
+          res.status(200).json({
+            message: 'Berhasil mendapatkan semua berita',
+            data : semuaBerita,
+          });
+        } catch (error) {
+          res.status(500).json({
+            message: 'Gagal mendapatkan berita',
+            error: error.message
+          });
+        }
+      } 
+}
 // Controller untuk membuat menu baru
-exports.tambahBerita = async (req, res) => {
+exports.Berita = async (req, res) => {
   try {
     const beritaBaru = new Berita(req.body); // Data menu dikirimkan melalui body request
     const beritaTersimpan = await beritaBaru.save();

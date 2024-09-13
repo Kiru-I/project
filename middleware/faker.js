@@ -8,7 +8,7 @@ const News = require('../models/beritaModel'); // Adjust this path according to 
 connection()
 // Data Factory using Faker.js
 const createFakeNews = () => {
-  return {
+  return {  
     JudulBerita: faker.lorem.sentence(),
     TanggalUpload: faker.date.past(),
     TanggalDiperbaharui: faker.date.recent(),

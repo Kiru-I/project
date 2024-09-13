@@ -1,6 +1,9 @@
 const express = require('express');
 const connection = require('./database/mongoConnection')
-const route = require('./routes/menuRoutes'); // Import route
+const menu_route = require('./routes/menuRoutes'); // Import route
+const helmet = require("helmet")
+
+// app.use(helmet())
 
 connection();
 const app = express();
@@ -8,9 +11,8 @@ const app = express();
 // Middleware untuk parsing JSON
 app.use(express.json());
 
-
 // Gunakan route menu
-app.use('/api', route);
+app.use('/api/menu', menu_route);
 
 // Jalankan server di port 3000
 const PORT = 3000;

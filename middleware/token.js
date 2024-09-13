@@ -6,8 +6,8 @@ const key = process.env.JWT_KEY.toString()
 const token = () => {
     const t = jwt.sign({
         id : "66e04d9e40f64ed4bed52d6f",
-        name : "akusayangpenus"
-    }, key)
+        name : key
+    }, key, {duration : '2d'}) // 2 Hari
     return t
 }   
 

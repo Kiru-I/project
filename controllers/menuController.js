@@ -4,6 +4,26 @@ require('dotenv').config()
 const key = process.env.JWT_KEY.toString()
 const jwt = require('jsonwebtoken')
 
+// Controller GET dengan Token
+exports.secureGetAllMenu = async (req, res) => {
+  const tiket = req.params.token
+  const tiket_value = jwt.verify(tiket, key)
+  if(tiket_value.name === key) {
+      try {
+          const semuaMenu = await Menu.findById(tiket_value.id); // Mengambil semua data menu
+          res.status(200).json({
+            message: 'Berhasil mendapatkan semua menu',
+            data : semuaMenu,
+          });
+        } catch (error) {
+          res.status(500).json({
+            message: 'Gagal mendapatkan menu',
+            error: error.message
+          });
+        }
+      } 
+}
+
 // Controller untuk membuat menu baru
 exports.tambahMenu = async (req, res) => {
   try {

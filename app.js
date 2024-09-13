@@ -3,7 +3,7 @@ const connection = require('./database/mongoConnection')
 const menu_route = require('./routes/menuRoutes'); // Import route
 const token_route = require('./routes/tokenRoutes')
 const helmet = require("helmet")
-const cookieParser = require("cookie-parser")
+const cookieParser = require('cookie-parser')
 const cors = require("cors")
 
 connection();

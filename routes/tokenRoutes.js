@@ -3,14 +3,23 @@
 require('dotenv').config()
 const jwt = require("jsonwebtoken")
 const express = require('express');
-// const cors = require("cors")
 const router = express.Router();
 
-router.get('/t/:id/' ,(req, res) => {
+const key = process.env.JWT_KEY.toString()
+const key2 = process.env.JWT_KEY_2.toString()
+
+router.get('/id/:id/' ,(req, res) => {
     res.send(jwt.sign({
         id : req.params.id,
-        name : process.env.JWT_KEY.toString()
-    }, process.env.JWT_KEY.toString()))
+        stat : [key2, "byid"]
+    }, key))
+})
+
+router.get('/all/', (req, res) => {
+    res.send(jwt.sign({
+        id : "akubencipenus",
+        stat : [key2, "all"]
+    }, key))
 })
 
 module.exports = router;

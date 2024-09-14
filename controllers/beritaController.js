@@ -1,28 +1,63 @@
 // Import model Menu
 const Berita = require('../models/beritaModel');
 require('dotenv').config()
-const key = process.env.JWT_KEY.toString()
 const jwt = require('jsonwebtoken')
+const key2 = process.env.JWT_KEY_2.toString()
+const key = process.env.JWT_KEY.toString()
 
-// Controller GET dengan Token
+// INI YANG AMAN
+exports.secureGetBeritaById = async (req, res) => {
+  const tiket = req.params.token
+  try {
+    const tiket_value = jwt.verify(tiket, key)
+    if(tiket_value.stat[1] === "byid" && tiket_value.stat[0] === key2) {
+      try {
+        const berita = await Berita.findById(tiket_value.id); // Mengambil 1 data berita
+        res.status(200).json({
+          message: 'Berhasil mendapatkan berita',
+          data: berita
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Gagal mendapatkan berita',
+          error: error.message
+        });
+      }
+    } else {
+      res.status(402).json({ message : "Invalid Token Key" })
+    }
+  } catch(error) {
+    res.status(403).json(error)
+  }
+}
+
 exports.secureGetAllBerita = async (req, res) => {
   const tiket = req.params.token
-  const tiket_value = jwt.verify(tiket, key)
-  if(tiket_value.name === key) {
+  try {
+    const tiket_value = jwt.verify(tiket, key)
+    if(tiket_value.stat[1] === "all" && tiket_value.stat[0] === key2) {
       try {
-          const semuaBerita = await Berita.findById(tiket_value.id); // Mengambil semua data menu
-          res.status(200).json({
-            message: 'Berhasil mendapatkan semua berita',
-            data : semuaBerita,
-          });
-        } catch (error) {
-          res.status(500).json({
-            message: 'Gagal mendapatkan berita',
-            error: error.message
-          });
-        }
-      } 
+        const berita = await Berita.find(); // Mengambil 1 data berita
+        res.status(200).json({
+          message: 'Berhasil mendapatkan berita',
+          data: berita
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: 'Gagal mendapatkan berita',
+          error: error.message
+        });
+      }
+    } else {
+      res.status(402).json({ message : "Invalid Stat" })
+    }
+  } catch(error) {
+      res.status(403).json(error)
+  }
 }
+
+
+// INI YANG KAGA AMAN
 // Controller untuk membuat menu baru
 exports.Berita = async (req, res) => {
   try {

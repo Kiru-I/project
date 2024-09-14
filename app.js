@@ -1,10 +1,8 @@
 const express = require('express');
 const connection = require('./database/mongoConnection')
-const berita_route = require('./routes/beritaRoutes'); // Import route
-const token_route = require('./routes/tokenRoutes')
-const helmet = require("helmet")
 const cookieParser = require('cookie-parser')
 const cors = require("cors")
+const helmet = require("helmet")
 
 connection();
 const app = express();
@@ -13,8 +11,8 @@ const app = express();
 app.use(express.json());
 
 // Gunakan route menu
-app.use('/api/berita', berita_route);
-app.use('/penus', token_route)
+app.use('/api/berita', require('./routes/beritaRoutes'));
+app.use('/pns', require('./routes/tokenRoutes'))
 
 // Mideweh
 app.use(helmet())
